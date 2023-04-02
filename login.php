@@ -1,7 +1,7 @@
 <!DOCTYPE html>
     <head>
         <meta charset="UTF-8">
-        <title>Sign In</title>
+        <title>Log In</title>
         <meta name="description" content="Diet making website to balance meals in the morning, afternoon, and night">
         <meta name="keywords" content="diet, healthy eating, balanced diet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,48 +19,33 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="login.php">Log In <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="signin.php">Sign In</a>
-                    </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="login.php">Log In <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="signin.php">Sign In</a>
+                </li>
                 </ul>
             </div>
-        </nav>
-        
+            </nav>
             <div class="container">
-                    <div class="signinForm">
-                        <h1>Sign In Page</h1>
+                    <div class="loginForm">
+                        <h1>Login Page</h1>
                         <form method="POST">
-                            <div class="firstName">
-                                <input type="text">
-                                <label>First Name</label>
-                            </div>
-
-                            <div class="lastName">
-                                <input type="text">
-                                <label>Last Name</label>
-                            </div>
-
-                            <div class="emailCreate">
+                            <div class="emailField">
                                 <input type="text">
                                 <label>Email</label>
                             </div>
 
-                            <div class="passCreate">
+                            <div class="passField">
                                 <input type="password">
                                 <label>Password</label>
-                            </div>
-                            <div class="confirmPass">
-                                <input type="password">
-                                <label>Confirm Password</label>
                             </div>
 
                             <input type="submit" value="Submit">
 
-                            <div class="loginLink">
-                                Already have an account?<a href="login.html"> Log in</a>
+                            <div class="signup_link">
+                                Don't have an account?<a href="signin.html"> Sign up</a>
                             </div>
 
                         </form>

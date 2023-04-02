@@ -13,14 +13,14 @@
     <head>
     <body>
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Menu</a>
+        <a class="navbar-brand" href="index.php">Menu</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Log In <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="login.php">Log In <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="signin.php">Sign In</a>
@@ -28,18 +28,15 @@
             </ul>
         </div>
         </nav>
-        <div id="title" class="section">
-            <div class="imgbox">
-                <img class="center-fit" src="img/mainBackground.jpg" alt="backgroundImage">
-            </div>
-
+        <div class="section title">
                 <div class="titleMessage">
                     <div class="heading">
                         <p class="main">Create your own diets </p>
                         <p class="sub">or choose one!</p>
                         <form method="POST">
-                            <input class="email" type="text" placeholder="Enter your email to receive a daily plan!" size="50px">
-                            <br>
+                            <div class="dailyEmail">
+                                <input class="email" type="text" placeholder="Enter your email to receive a daily plan!" size="50px">
+                            </div>
                             <input class="inputEmail" type="submit" value="Submit">
                         </form>
                     </div>
