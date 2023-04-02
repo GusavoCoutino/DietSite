@@ -29,59 +29,63 @@
         </div>
         </nav>
         <div id="title" class="section">
-            <div class="overlay"></div>
             <div class="imgbox">
                 <img class="center-fit" src="img/mainBackground.jpg" alt="backgroundImage">
             </div>
 
                 <div class="titleMessage">
-                    <h3 class="titleDescriptionTop">Create your own diets </h3>
-                    <h3 class="titleDescriptionBottom">or choose one!</h3>
-                    <form method="POST">
-                        <input id="email" type="text" placeholder="Enter your email to receive a daily plan!" size="50px">
-                        <br>
-                        <input id="inputEmail" type="submit" value="Submit">
-                    </form>
+                    <div class="heading">
+                        <p class="main">Create your own diets </p>
+                        <p class="sub">or choose one!</p>
+                        <form method="POST">
+                            <input class="email" type="text" placeholder="Enter your email to receive a daily plan!" size="50px">
+                            <br>
+                            <input class="inputEmail" type="submit" value="Submit">
+                        </form>
+                    </div>
                 </div>
         </div>
 
-            <div id="about" class="section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-5">
-                            <img id="appleImage" src="img/appleBackground.png" alt="apple">
-                        </div>
-                        <div class="col-md-7">
-                            <h2 class="secondDivTitle">What is this about?</h2>
-                            <p class="secondDivDescription">We know how hard it is to stay healthy with all 
-                            the planning involving in making your meals. That's why we offer
-                            creating a meal plan for all 3 meals in the day, or you can just 
-                            choose a predetermined diet.
-                            </p>
-                        </div>
+        <div id="about" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5">
+                        <img id="appleImage" src="img/appleBackground.png" alt="apple">
+                    </div>
+                    <div class="col-md-7">
+                        <h2 class="secondDivTitle">What is this about?</h2>
+                        <p class="secondDivDescription">We know how hard it is to stay healthy with all 
+                        the planning involving in making your meals. That's why we offer
+                        creating a meal plan for all 3 meals in the day, or you can just 
+                        choose a predetermined diet.
+                        </p>
                     </div>
                 </div>
             </div>
-            <div id="stats" class="section">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h1>Why is this important?</h1>
-                        </div>
-                        <div class="owl-carousel owl-theme">
-                           <div class="skill">
-                                <span class="chart" data-percent="77">77</span>
-                           </div>
-                        </div>
-                        While you may not notice the physical 
-                        effects on your body all the time, a balanced diet helps you live longer,
-                        supports the strength of your muscles, and lowers risk of heart disease, among others.
+        </div>
+        <div id="stats" class="section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>Why is this important?</h1>
                     </div>
+                    <div class="owl-carousel owl-theme">
+                        <div class="data">
+                            <div class="chart" data-percent="77">
+                                    <span class="percent">77</span>
+                                    <canvas height="152" width="152"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    While you may not notice the physical 
+                    effects on your body all the time, a balanced diet helps you live longer,
+                    supports the strength of your muscles, and lowers risk of heart disease, among others.
                 </div>
             </div>
-        <script src="js/script.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
+        </div>
         <script src="js/jquery.easypiechart.min.js"></script>
+        <script src="js/owl.carousel.min.js"></script>
+        <script src="js/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

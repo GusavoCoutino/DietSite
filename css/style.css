@@ -1,55 +1,47 @@
-.overlay{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 3;
-    background-color: rgba(0,0,0, 0.1);
+body {
+    color: #333;
+    background-color: #fff;
+    letter-spacing: 1px;
 }
 
 .titleMessage{
     position: absolute;
     width: 100%;
-    height: 250px;
+    height: 200px;
     top: 50%;
     text-align: center;
-    margin-top: -125px;
-    z-index: 5;
+    top: 20%;
 }
 
-
-.imgbox {
-    display: grid;
-
-}
-.center-fit {
-    max-width: 100%;
-    max-height: 100%;
-    margin: auto;
+.titleMessage .heading p {
+    color: #fff;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+    font-weight: 100;
+    letter-spacing: 7px;
 }
 
-.titleDescriptionTop{
-    font-family: 'Dosis';
-    font-size: 80px;
+.titleMessage .heading .main{
+    font-size: 100px;
+    font-family: "Dosis";
     color: green;
 }
 
-.titleDescriptionBottom{
-    font-family: 'Dosis';
-    font-size: 50px;
-    color: white;
+.titleMessage .heading .sub{
+    font-size: 90px;
+    font-family: "Dosis";
 }
 
-#email{
+.email{
     display: block;
     margin-right: auto;
     margin-left: auto;
-    width: 30%;
-    height: 20%;
+    height: 40px;
+    width: 500px;
 }
 
-#inputEmail{
-    height: 15%;
-    width: 10%;
+.inputEmail{
+    height: 40px;
+    width: 90px;
     background-color: #9FE2BF;
     border-radius: 10%;
     display: inline-block;
@@ -75,3 +67,87 @@
     font-weight: bold;
 }
 
+.loginForm{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Dosis";
+    width: 500px;
+    height: 400px;
+    background: white;
+    border-radius: 10px;
+}
+
+.loginForm h1{
+    text-align: center;
+    padding: 30px 0 30px 0;
+    border-bottom: 1px solid silver;
+}
+
+.loginForm form{
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+form .emailField{
+    position: relative;
+    border-bottom: 2px solid;
+    margin: 40px 0;
+}
+
+.emailField input{
+    width: 100%;
+    padding: 0 5px;
+    height: 20px;
+    font-size: 16px;;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.emailField label{
+    position: absolute;
+    top: 110%;  
+    left: 5px;
+    color: gray;
+}
+
+form .passField{
+    position: relative;
+    border-bottom: 2px solid;
+    margin: 30px 0;
+}
+
+.passField input{
+    width: 100%;
+    padding: 0 5px;
+    height: 20px;
+    font-size: 16px;;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.passField label{
+    position: absolute;
+    top: 110%;  
+    left: 5px;
+    color: gray;
+}
+
+.loginForm input[type="submit"]{
+    width: 100%;
+    height: 50px;
+    border: 1px solid;
+    background: #9FE2BF;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 900;
+    outline: none;
+}
+
+.signup_link{
+    margin: 30px 0;
+    text-align: center;
+}
