@@ -34,39 +34,37 @@
                         <h1>Sign In Page</h1>
                         <form method="POST">
                             <div class="firstName">
-                                <input type="text">
+                                <input type="text" id="firstName">
                                 <label>First Name</label>
                             </div>
 
                             <div class="lastName">
-                                <input type="text">
+                                <input type="text" id="lastName">
                                 <label>Last Name</label>
                             </div>
 
                             <div class="emailCreate">
-                                <input type="text">
+                                <input type="text" id="email">
                                 <label>Email</label>
                             </div>
 
                             <div class="passCreate">
-                                <input type="password">
+                                <input type="password" id="pass">
                                 <label>Password</label>
                             </div>
                             <div class="confirmPass">
-                                <input type="password">
+                                <input type="password" id="passConfirm">
                                 <label>Confirm Password</label>
                             </div>
-
-                            <input type="submit" value="Submit">
+                            <input type="submit" value="Submit" onclick="return validateSignin();">
 
                             <div class="loginLink">
                                 Already have an account?<a href="login.html"> Log in</a>
                             </div>
-
-                        </form>
+                        </form>                
                     </div>
             </div>
-
+        <script src="js/script.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>  

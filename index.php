@@ -12,34 +12,38 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <head>
     <body>
-        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="index.php">Menu</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="login.php">Log In <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="signin.php">Sign In</a>
-            </li>
-            </ul>
-        </div>
-        </nav>
+        <header>
+            <nav class="navbar">
+                <a href="index.php" class="nav-branding">Always Healthy</a>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="login.php" class="nav-link">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signin.php">Sign In</a>
+                    </li>
+                </ul>
+                <div class="hamburger">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </nav>
+        </header>
+
         <div class="section title">
                 <div class="titleMessage">
-                    <div class="heading">
-                        <p class="main">Create your own diets </p>
-                        <p class="sub">or choose one!</p>
+                        <p>Create your own diets </p>
+                        <p>or choose one!</p>
                         <form method="POST">
                             <div class="dailyEmail">
-                                <input class="email" type="text" placeholder="Enter your email to receive a daily plan!" size="50px">
+                                <input type="text" placeholder="Enter your email to receive a daily plan!">
                             </div>
                             <input class="inputEmail" type="submit" value="Submit">
                         </form>
-                    </div>
                 </div>
         </div>
 
@@ -60,7 +64,7 @@
                 </div>
             </div>
         </div>
-        <div id="stats" class="section">
+        <div class="stats">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
