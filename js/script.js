@@ -4,7 +4,7 @@ document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", 
 }))
 
 jQuery(document).ready(function($){
-    const hamburger = document.querySelector(".hamburger");
+const hamburger = document.querySelector(".hamburger");
 const navMenu = document.querySelector(".nav-menu");
 const title = document.querySelector(".titleMessage");
 const background = document.querySelector(".title");
@@ -47,44 +47,22 @@ hamburger.addEventListener("click", ()=>{
             }
         }
     });
-
-    
-    
-    $('.chart').easyPieChart({
-        easing: 'easeInOut',
-        barColor: '#fff',
-        trackColor: false,
-        scaleColor: false,
-        lineWidth: 4,
-        size: 152,
-        onStep: function(from, to, percent){
-            $(this.el).find('.percent').text(Math.round(percent))
-        }
-    });
+        var statsTopOffset =  $(".statsSection").offset().top;
+        $(window).scroll(function(){
+            if(window.pageYOffset>statsTopOffset-$(window).height()+800){
+                $('.chart').easyPieChart({
+                    easing: 'easeInOut',
+                    barColor: '#fff',
+                    trackColor: false,
+                    scaleColor: false,
+                    lineWidth: 4,
+                    size: 152,
+                    onStep: function(from, to, percent){
+                        $(this.el).find('.percent').text(Math.round(percent))
+                    }
+                    }); 
+            }
+        });
 });
 
-function validateSignin(){
-    try{
-        fn = document.getElementById("firstName").value;
-        ln = document.getElementById("lastName").value;
-        em = document.getElementById("email").value;
-        pd = document.getElementById("pass").value;
-        pdC = document.getElementById("passConfirm").value;
-        if(fn == null || fn == "" || ln == null || ln == "" || em == null || em == "" || pd == null || pd == "" || pdC == null || pdC == ""){
-            alert("Both fields must be filled out");
-            return false;
-        }
-        if( em.indexOf('@') == -1 ) {
-            alert("Invalid email address");
-            return false;
-        }
-        if(pd != pdC){
-            alert("Passwords do not match!");
-            return false;
-        }
-        return true;
-    } catch(e) {
-        return false;
-    }
-}
 

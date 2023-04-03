@@ -417,8 +417,40 @@ form .confirmPass{
     text-align: center;
 }
 
-.stats{
-    padding: 50px 0;
-    height: 500px;
+
+#stats{
     background-color: #9FE2BF;
+}
+
+.stat{
+    text-align: center;
+    margin-left: 10px;
+}
+
+.chart{
+    position: relative;
+    width: 152px;
+    height: 152px;
+    display: inline-block;
+    text-align: center;
+}
+
+.chart canvas{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.chart .percent{
+    line-height: 152px;
+    display: inline-block;
+    font-size: 35px;
+}
+
+.chart .percent:after{
+    content: '%';
+}
+
+.descriptionStats{
+    font-size: 30px;
 }
