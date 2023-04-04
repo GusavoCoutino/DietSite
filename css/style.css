@@ -115,7 +115,7 @@ header a{
 .titleMessage{
     position: absolute;
     height: 600px;
-    top: 50%;
+    top: 60%;
     text-align: center;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -183,7 +183,7 @@ header a{
     transform: translate(-50%, -50%);
     font-family: "Dosis";
     width: 500px;
-    height: 400px;
+    height: 450px;
     background: white;
     border-radius: 10px;
 }
