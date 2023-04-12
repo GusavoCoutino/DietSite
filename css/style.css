@@ -126,10 +126,8 @@ header a{
 }
 
 @media(max-width: 1188px){
-    .titleMessage{
-        
-        height: 800px;
-        transform: translate(-50%, -35%);
+    .titleMessage{ 
+        height: 850px;
     }
 }
 
@@ -209,7 +207,7 @@ form .emailField{
     width: 100%;
     padding: 0 5px;
     height: 20px;
-    font-size: 16px;;
+    font-size: 16px;
     border: none;
     background: none;
     outline: none;
@@ -420,6 +418,7 @@ form .confirmPass{
 
 #stats{
     background-color: #9FE2BF;
+    font-family: "Dosis";
 }
 
 .stat{
@@ -454,3 +453,277 @@ form .confirmPass{
 .descriptionStats{
     font-size: 30px;
 }
+
+.dietContain{
+    padding: 100px 0;
+}
+
+.col{
+    flex: 1 0;
+}
+
+.dietContain{
+    text-align: center;
+    font-family: "Dosis";
+}
+
+.dietCreate{
+    color: black;
+    background-color: #9FE2BF;
+    padding: 15px 20px;
+    display: inline-block;
+    border: 1px solid #fff;
+    border-radius: 2px;
+}
+
+.dietCreate:hover{
+    text-decoration: none;
+    background-color: rgb(159, 226, 191, 0.8);
+}
+
+@media only screen and (max-width: 800px){
+    #no-more-tables tbody, #no-more-tables tr, #no-more-tables td{
+        display: block;
+    }
+
+    #no-more-tables thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    #no-more-tables td{
+        position: relative;
+        padding-left: 50%;
+    }
+
+    #no-more-tables td:before{
+        content: attr(data-title);
+        position: absolute;
+        left: 6px;
+        font-weight: bold;
+    }
+
+    #no-more-tables tr{
+        border-bottom: 1px solid #ccc;
+    }
+}
+
+.quiz{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -40%);
+    font-family: "Dosis";
+    width: 500px;
+    height: 750px;
+    border-radius: 10px;
+}
+
+.quiz form{
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+form .ageContainer{
+    position: relative;
+    border-bottom: 3px solid;
+    margin: 40px 0;
+}
+
+.ageContainer input{
+    width: 100%;
+    padding: 0 5px;
+    height: 30px;
+    font-size: 30px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.ageContainer label{
+    position: absolute;
+    top: 110%;  
+    left: 5px;
+    font-size: 30px;
+    color: black;
+}
+
+form .heightContainer{
+    position: relative;
+    border-bottom: 3px solid;
+    margin: 120px 0;
+}
+
+.heightContainer input{
+    width: 100%;
+    padding: 0 5px;
+    height: 30px;
+    font-size: 30px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.heightContainer label{
+    position: absolute;
+    top: 110%;  
+    left: 5px;
+    font-size: 30px;
+    color: black;
+}
+
+form .weightContainer{
+    position: relative;
+    border-bottom: 3px solid;
+    margin: 120px 0;
+}
+
+.weightContainer input{
+    width: 100%;
+    padding: 0 5px;
+    height: 30px;
+    font-size: 30px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.weightContainer label{
+    position: absolute;
+    top: 110%;  
+    left: 5px;
+    font-size: 30px;
+    color: black;
+}
+
+form .genderContainer{
+    position: relative;
+    margin: 120px 0;
+}
+
+.genderContainer select{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 25px;
+    border: none;
+    background: none;
+    outline: none;
+    border: 1px solid;
+}
+
+.genderContainer label{
+    position: absolute;
+    top: 110%;  
+    left: 5px;
+    font-size: 30px;
+    color: black;
+}  
+
+.quiz input[type="submit"]{
+    width: 100%;
+    height: 50px;
+    border: 1px solid;
+    background: #9FE2BF;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 900;
+    outline: none;
+}
+
+.errorMessage p{
+    text-align: center;
+    font-size: 40px;
+    padding: 10px 10px 10px 10px;
+}
+
+#map{
+	width: 900px;
+	max-width: 100%;
+	height: 500px;
+}
+
+.containerView{
+    width: 800px;
+    margin: 50px auto 0;
+    display: table;
+    box-sizing: border-box;
+    font-family: "Dosis";
+}
+
+.row{
+    margin: 10px 0;
+}
+
+.column{
+    display: table-cell;
+    padding: 10px;
+    width: 33.3333%;
+    text-align: center;
+    color: #000;
+    vertical-align: middle;
+    border-right: 10px solid #fff;
+    border-left: 10px solid #fff;
+    font-size: 30px;
+}
+
+.containerView h1{
+    font-weight: bold;
+}
+
+.row:nth-child(1) .column:nth-child(1){
+    background: #F5D8BB;
+}
+
+.row:nth-child(1) .column:nth-child(2){
+    background: #F47D8C;
+}
+
+.row:nth-child(1) .column:nth-child(3){
+    background: #478b96;
+}
+
+.row:nth-child(2) .column:nth-child(1){
+    background: #d95a19;
+}
+
+.row:nth-child(2) .column:nth-child(2){
+    background: #ffd97d;
+}
+
+@media (max-width: 900px){
+    .containerView{
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+    }
+
+    .column{
+        width: 100%;
+        display: block;
+        margin: 10px 0;
+        border: none;
+        box-sizing: border-box;
+    }
+}
+
+.returnButton{
+    padding-top: 30px;
+    width: 100%;
+    text-align: center;
+    height: 200px;
+}
+
+.returnButton input[type="submit"]{
+    width: 30%;
+    height: 50px;
+    border: 1px solid;
+    background: #9FE2BF;
+    border-radius: 25px;
+    font-size: 18px;
+    font-weight: 900;
+    outline: none;
+    font-family: "Dosis";
+}
+

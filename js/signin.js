@@ -14,14 +14,11 @@ hamburger.addEventListener("click", ()=>{
     hamburger.classList.toggle("active");
     navMenu.classList.toggle("active");
     if(counter%2==0){
-        form.style.transform = "translate(-50%, -10%)";
+        form.style.transform = "translate(-50%, 10%)";
         
     }
     else{
         form.style.transform = "translate(-50%, -50%)";
-        if(form.offsetHeight==800){
-            form.style.transform = "translate(-50%, -35%)";
-        }
     }
 
     counter++;

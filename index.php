@@ -1,18 +1,13 @@
 <?php
-session_start()
+session_start();
+require_once "util.php";
 ?>
 <!doctype html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>AlwaysHealthy</title>
-        <meta name="description" content="Diet making website to balance meals in the morning, afternoon, and night">
-        <meta name="keywords" content="diet, healthy eating, balanced diet">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <?php head() ?>
         <link rel="stylesheet" type="text/css" href="css/style.css?<?php echo time(); ?>">
-        <link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet'>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <head>
     <body>
         <header>
@@ -22,9 +17,13 @@ session_start()
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Menu</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store.php">Store</a>
+                    </li>
                     <?php
                     if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
-                        echo '<li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>';
+                        echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
+                        echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
                     }
                     else {
                         echo '<li class="nav-item"><a href="login.php" class="nav-link">Log In</a></li>
@@ -46,11 +45,11 @@ session_start()
                 <div class="titleMessage">
                         <p>Create your own diets </p>
                         <p>or choose one!</p>
-                        <form method="POST">
+                        <form method="POST" action="send.php">
                             <div class="dailyEmail">
-                                <input type="text" placeholder="Enter your email to receive a daily plan!">
+                                <input type="text" placeholder="Enter your email to receive a daily plan!" name="email">
                             </div>
-                            <input class="inputEmail" type="submit" value="Submit">
+                            <input class="inputEmail" type="submit" value="Submit" name="send">
                         </form>
                 </div>
         </div>
@@ -76,7 +75,7 @@ session_start()
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <h1>Why is this important?</h1>
+                        <h1><b>Why is this important?</b></h1>
                     </div>
                     <div class="owl-carousel owl-theme">
                         <div class="stat">
@@ -84,7 +83,7 @@ session_start()
                                 <span class="percent">67</span>
                                 <canvas height="152" width="152"></canvas>
                             </span>
-                            <h4>Increases motor skills</h4>
+                            <h4><b>Increases motor skills</b></h4>
                             <p>Muscles retain 67% more stength in a healthy body</p>
                         </div>
 
@@ -93,7 +92,7 @@ session_start()
                                 <span class="percent">50</span>
                                 <canvas height="152" width="152"></canvas>
                             </span>
-                            <h4>Retains eyesight</h4>
+                            <h4><b>Retains eyesight</b></h4>
                             <p>Eyesight is 50% better as old age increases</p>
                         </div>
 
@@ -102,7 +101,7 @@ session_start()
                                 <span class="percent">20</span>
                                 <canvas height="152" width="152"></canvas>
                             </span>
-                            <h4>Improves thinking</h4>
+                            <h4><b>Improves thinking</b></h4>
                             <p>Eating healthy ensures you use around 20% more of your mental capacity</p>
                         </div>
 
@@ -111,7 +110,7 @@ session_start()
                                 <span class="percent">16</span>
                                 <canvas height="152" width="152"></canvas>
                             </span>
-                            <h4>Increases lifespan</h4>
+                            <h4><b>Increases lifespan</b></h4>
                             <p>The average human eating a balanced diet lives 16% more years in comparison to the population</p>
                         </div>
 
@@ -120,7 +119,7 @@ session_start()
                                 <span class="percent">33</span>
                                 <canvas height="152" width="152"></canvas>
                             </span>
-                            <h4>Speeds up digestive system</h4>
+                            <h4><b>Speeds up digestive system</b></h4>
                             <p>Eating non-processed foods increases the digestion speed by 33%</p>
                         </div>
 

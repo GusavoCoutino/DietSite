@@ -22,8 +22,8 @@ hamburger.addEventListener("click", ()=>{
     else{
         title.style.transform = "translate(-50%, -50%)";
         background.style.height = "900px";
-        if(title.offsetHeight==800){
-            title.style.transform = "translate(-50%, -35%)";
+        if(title.offsetHeight==850){
+            title.style.transform = "translate(-50%, -50%)";
         }
     }
 
