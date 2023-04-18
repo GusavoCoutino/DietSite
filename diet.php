@@ -2,10 +2,7 @@
 session_start();
 require_once "util.php";
 require_once "db/pdo.php";
-if (!isset($_SESSION["firstName"])) {
-    header("location: index.php");
-    return;
-}
+validateLogin();
 ?>
 <!doctype html lang="en">
 <html>
@@ -66,7 +63,7 @@ if (!isset($_SESSION["firstName"])) {
                             <?php
                             $stmt = $pdo->query("SELECT * FROM diets WHERE user_id = ".$_SESSION["user_id"].";");
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                                echo "<tr><td data-title='ID'>".$row["diet_id"]."</td><td data-title='Date'>".$row["date"]."</td><td data-title='View'><a href=view.php?profile_id=".$row["user_id"].">View Diet</a></td><td data-title='Edit'><a href=edit.php?profile_id=".$row["user_id"].">Edit Diet</a></td><td data-title='Delete'><a href=delete.php?profile_id=".$row["user_id"].">Delete Diet</a>";
+                                echo "<tr><td data-title='ID'>".$row["diet_id"]."</td><td data-title='Date'>".$row["date"]."</td><td data-title='View'><a href=view.php?diet_id=".$row["diet_id"].">View Diet</a></td><td data-title='Edit'><a href=edit.php?diet_id=".$row["diet_id"].">Edit Diet</a></td><td data-title='Delete'><a href=delete.php?diet_id=".$row["diet_id"].">Delete Diet</a>";
                                 echo "</td></tr>";
                             }
                             ?>

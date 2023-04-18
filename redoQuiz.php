@@ -3,22 +3,28 @@ session_start();
 require_once "util.php";
 require_once "db/pdo.php";
 
+
 if(!isset($_SESSION["firstName"]) && !isset($_SESSION["last_name"])){
     header("location: diet.php");
     return;
 }
 
-
-
+if (!isset($_GET["diet_id"])){
+    $_SESSION["error"] = "Missing user id";
+    header("Location: diet.php");
+    return;
+}
 
 if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) && isset($_POST["gender"])){
     if(is_numeric($_POST["age"]) && is_numeric($_POST["height"]) && is_numeric($_POST["weight"])){
         $diets = chooseDiet(Mifflin_St_Jeor($_POST["age"], $_POST["height"], $_POST["weight"], $_POST["gender"]));
         if($diets!==false){
             $_SESSION["date"] = date('d-m-y h:i:s');
-            $stmt = $pdo->prepare('INSERT INTO diets (user_id, breakfast, lunch, supper, collation, dinner, date, age, height, weight, gender) VALUES ( :uid, :bf, :ln, :sp, :cl, :di, :dt, :ag, :he, :we, :ge)');
+            $stmt = $pdo->prepare('UPDATE diets SET
+            user_id=:uid, diet_id=:did, breakfast=:bf, lunch=:ln, supper=:sp, collation=:cl, dinner=:di, date=:dt, age=:ag, height=:he, weight=:we, gender=:ge WHERE user_id = :uid AND diet_id = :did');
             $stmt->execute(array(
-            ':uid' => $_SESSION['user_id'],
+            ':uid' => $_POST['user_id'],
+            ':did' => $_POST['diet_id'],
             ':bf' => $diets["breakfast"],
             ':ln' => $diets["lunch"],
             ':sp' => $diets["supper"],
@@ -42,7 +48,16 @@ if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) &&
         header("location: createDiet.php");
         return;
     }
-} 
+}
+
+$stmt = $pdo->prepare("SELECT * FROM diets WHERE diet_id = :did AND user_id = :uid");
+$stmt->execute(array(":did" => $_GET["diet_id"], ":uid" => $_SESSION["user_id"]));
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+if ($row === false){
+    $_SESSION["error"] = "Bad value for profile id";
+    header("Location: diet.php");
+    return;
+}
 ?>
 <!doctype html lang="en">
 <html>
@@ -80,32 +95,41 @@ if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) &&
        <div class="quiz">
             <div class="errorMessage">
                 <?php
-                flashMessage();
+                 flashMessage();
+         
+                 $age = htmlentities($row["age"]);
+                 $height = htmlentities($row["height"]);
+                 $weight = htmlentities($row["weight"]);
+                 $gender = htmlentities($row["gender"]);
+                 $user_id = $row["user_id"];
+         
                 ?>
             </div>
             <form method="POST">
                 <div class="ageContainer">
-                    <input type="text" name="age">
+                    <input type="text" name="age" value="<?=$age?>">
                     <label>Age</label>  
                 </div>
 
                 <div class="heightContainer">
-                    <input type="text" name="height">
+                    <input type="text" name="height" value="<?=$height?>">
                     <label>Height</label>
                 </div>
 
                 <div class="weightContainer">
-                    <input type="text" name="weight">
+                    <input type="text" name="weight" value="<?=$weight?>">
                     <label>Weight</label>
                 </div>
 
                 <div class="genderContainer">
-                    <select name="gender">
+                    <select name="gender" value="<?=$gender?>">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </select>
                     <label>Gender</label>
                 </div>
+                <input type="hidden" value="<?=$user_id?>" name="user_id">
+                <input type="hidden" value="<?=$_GET["diet_id"]?>" name="diet_id">
 
                 <input type="submit" value="Submit">
             </form>

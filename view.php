@@ -3,13 +3,16 @@ session_start();
 require_once "util.php";
 require_once "db/pdo.php";
 
+validateLogin();
+validateDiet();
+
 if(isset($_POST["cancel"])){
     header("location: diet.php");
     return;
 }
 
-$stmt = $pdo->prepare("SELECT * FROM diets WHERE user_id = :uid");
-$stmt->execute(array(":uid" => $_GET["profile_id"]));
+$stmt = $pdo->prepare("SELECT * FROM diets WHERE diet_id = :did");
+$stmt->execute(array(":did" => $_GET["diet_id"]));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row === false){
     header("Location: index.php");
@@ -32,43 +35,43 @@ $dinner = explode(";", $row["dinner"]);
         <link rel="stylesheet" type="text/css" href="css/style.css?<?php echo time(); ?>">
     </head>    
     <body>
-    <header>
-            <nav class="navbar">
-                <a href="index.php" class="nav-branding">Always Healthy</a>
-                <ul class="nav-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php">Menu</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="store.php">Store</a>
-                    </li>
-                    <?php
-                    if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
-                        echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
-                        echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
-                    }
-                    else {
-                        echo '<li class="nav-item"><a href="login.php" class="nav-link">Log In</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="signin.php">Sign In</a>
-                    </li>';
-                    }
-                    ?>
-                </ul>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-            </nav>
-        </header>
+        <header>
+                <nav class="navbar">
+                    <a href="index.php" class="nav-branding">Always Healthy</a>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="store.php">Store</a>
+                        </li>
+                        <?php
+                        if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
+                            echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
+                            echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
+                        }
+                        else {
+                            echo '<li class="nav-item"><a href="login.php" class="nav-link">Log In</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="signin.php">Sign In</a>
+                        </li>';
+                        }
+                        ?>
+                    </ul>
+                    <div class="hamburger">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </nav>
+            </header>
         <div class="containerView">
             <div class="row">
                 <div class="column">
                     <h1>Breakfast</h1>
                     <?php 
                     for($i = 0; $i<count($breakfast); $i++){
-                        echo "<p>".$breakfast[$i]."</p>";
+                        echo "<p>".htmlentities($breakfast[$i])."</p>";
                     }
                     ?>
                 </div>
@@ -76,7 +79,7 @@ $dinner = explode(";", $row["dinner"]);
                     <h1>Lunch</h1>  
                     <?php 
                     for($i = 0; $i<count($lunch); $i++){
-                        echo "<p>".$lunch[$i]."</p>";
+                        echo "<p>".htmlentities($lunch[$i])."</p>";
                     }
                     ?>
                 </div>
@@ -84,7 +87,7 @@ $dinner = explode(";", $row["dinner"]);
                     <h1>Supper</h1>
                     <?php 
                     for($i = 0; $i<count($supper); $i++){
-                        echo "<p>".$supper[$i]."</p>";
+                        echo "<p>".htmlentities($supper[$i])."</p>";
                     }
                     ?>
                 </div>
@@ -94,7 +97,7 @@ $dinner = explode(";", $row["dinner"]);
                     <h1>Collation</h1>
                     <?php 
                     for($i = 0; $i<count($collation); $i++){
-                        echo "<p>".$collation[$i]."</p>";
+                        echo "<p>".htmlentities($collation[$i])."</p>";
                     }
                     ?>
                 </div>
@@ -102,7 +105,7 @@ $dinner = explode(";", $row["dinner"]);
                     <h1>Dinner</h1>
                     <?php 
                     for($i = 0; $i<count($dinner); $i++){
-                        echo "<p>".$dinner[$i]."</p>";
+                        echo "<p>".htmlentities($dinner[$i])."</p>";
                     }
                     ?>
                 </div>
@@ -113,5 +116,9 @@ $dinner = explode(";", $row["dinner"]);
                 <input type="submit" value="Return to diet list" name="cancel">
             </div>
         </form>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="js/viewDiet.js"></script>
     </body>
 </html>

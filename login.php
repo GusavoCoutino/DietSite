@@ -1,10 +1,12 @@
 <?php
 session_start();
 require_once "db/pdo.php"; require_once "util.php";
+require  __DIR__ . "/vendor/autoload.php";
 if(isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])){
     header("Location: index.php");
     return;
 }
+
 if(isset($_POST["email"]) && isset($_POST["pass"])){
     $check = hash("md5", $_POST["pass"]);
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:em AND password=:pd");
@@ -83,6 +85,8 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
                             <div class="signup_link">
                                 Don't have an account?<a href="signin.php"> Sign up</a>
                             </div>
+
+                        
 
                             
 

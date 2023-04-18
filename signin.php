@@ -11,12 +11,19 @@ if(isset($_POST["email"]) && isset($_POST["pass"]) && isset($_POST["firstName"])
     $check = hash("md5", $_POST["pass"]);
     $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES(:fn, :ln, :em, :pd)");
     $stmt->execute(array(
-        ":fn"=>$_POST["first_name"],
-        "ln"=>$_POST["last_name"],
+        ":fn"=>$_POST["firstName"],
+        "ln"=>$_POST["lastName"],
         ":em"=>$_POST["email"], 
         ":pd"=>$check));
-    $_SESSION["firstName"] = $row["first_name"];
-    $_SESSION["lastName"] = $row["last_name"];
+    $_SESSION["firstName"] = $_POST["firstName"];
+    $_SESSION["lastName"] = $_POST["lastName"];
+
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:em AND password=:pd");
+    $stmt->execute(array(
+        ":em"=>$_POST["email"], 
+        ":pd"=>$check));
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $_SESSION["user_id"] = $row["user_id"];
     header("Location: index.php");
     return;
 }
@@ -60,8 +67,6 @@ if(isset($_POST["email"]) && isset($_POST["pass"]) && isset($_POST["firstName"])
                     <div class="signinForm">
                         <h1>Sign In Page</h1>
                         <form method="POST">
-                            <?php
-                            ?>
                             <div class="firstName">
                                 <input name="firstName" type="text" id="firstName">
                                 <label>First Name</label>
