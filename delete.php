@@ -1,36 +1,40 @@
 <?php
 session_start();
-require_once "db/pdo.php";
+require_once "pdo.php";
 require_once "util.php";
 
+#Checks if user is logged in and if diet id exists
 validateLogin();
 validateDiet();
 
 if(isset($_POST["cancel"])){
-    header("location: diet.php");
+    header("location: dietTable.php");
     return;
 }
 
+#If the delete button is pressed, the diet is erased from the database
 if(isset($_POST['delete']) && isset($_GET['diet_id'])){
     $sql = "DELETE FROM diets WHERE diet_id = :dit";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(array(":dit" => $_GET["diet_id"]));
-    header("Location: diet.php");
+    header("Location: dietTable.php");
     return;
 }
 
+#Checks if the diet_id argument is passed in the url
 if (!isset($_GET["diet_id"])){
     $_SESSION["error"] = "Missing user id";
-    header("Location: diet.php");
+    header("Location: dietTable.php");
     return;
 }
 
+#Checks if the value in diet_id exists in the database
 $stmt = $pdo->prepare("SELECT * FROM diets WHERE diet_id = :dit");
 $stmt->execute(array(":dit" => $_GET["diet_id"]));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row === false){
     $_SESSION["error"] = "Bad value for diet id";
-    header("Location: diet.php");
+    header("Location: dietTable.php");
     return;
 }
 ?>
@@ -55,7 +59,7 @@ if ($row === false){
                     </li>
                     <?php
                     if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
-                        echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
+                        echo '<li class="nav-item"><a href="dietTable.php" class="nav-link">View Diets</a></li>';
                         echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
                     } else {
                         echo '<li class="nav-item"><a href="login.php" class="nav-link">Log In</a></li>

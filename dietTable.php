@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "util.php";
-require_once "db/pdo.php";
+require_once "pdo.php";
 validateLogin();
 ?>
 <!doctype html lang="en">
@@ -24,7 +24,7 @@ validateLogin();
                             <a class="nav-link" href="store.php">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a href="diet.php" class="nav-link">View Diets</a>
+                            <a href="dietTable.php" class="nav-link">View Diets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Log Out</a>
@@ -61,6 +61,7 @@ validateLogin();
                             </thead>
                             <tbody>
                             <?php
+                            #Creates the table to interact with the diet
                             $stmt = $pdo->query("SELECT * FROM diets WHERE user_id = ".$_SESSION["user_id"].";");
                             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                                 echo "<tr><td data-title='ID'>".$row["diet_id"]."</td><td data-title='Date'>".$row["date"]."</td><td data-title='View'><a href=view.php?diet_id=".$row["diet_id"].">View Diet</a></td><td data-title='Edit'><a href=edit.php?diet_id=".$row["diet_id"].">Edit Diet</a></td><td data-title='Delete'><a href=delete.php?diet_id=".$row["diet_id"].">Delete Diet</a>";

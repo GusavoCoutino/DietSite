@@ -21,8 +21,9 @@ require_once "util.php";
                         <a class="nav-link" href="store.php">Store</a>
                     </li>
                     <?php
+                    #If the user is logged in, the option to logout and interact with the diet are displayed in the navbar
                     if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
-                        echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
+                        echo '<li class="nav-item"><a href="dietTable.php" class="nav-link">View Diets</a></li>';
                         echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
                     }
                     else {

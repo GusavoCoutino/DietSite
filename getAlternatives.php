@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "util.php";
-require_once "db/pdo.php";
+require_once "pdo.php";
 
 validateLogin();
 validateDiet();
@@ -11,20 +11,26 @@ $stmt->execute(array(":did" => $_GET["diet_id"], ":uid" => $_SESSION["user_id"])
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row === false){
     $_SESSION["error"] = "Bad value for profile id";
-    header("Location: diet.php");
+    header("Location: dietTable.php");
     return;
 }
 
+#Checks if all fields are complete
 if(isset($_POST["Breakfast2"]) && isset($_POST["Breakfast4"]) && isset($_POST["Breakfast6"]) && isset($_POST["Lunch2"]) && isset($_POST["Lunch4"]) && isset($_POST["Lunch6"]) && isset($_POST["Lunch8"]) && isset($_POST["Supper2"]) && isset($_POST["Supper4"]) && isset($_POST["Supper6"]) && isset($_POST["Collation2"]) && isset($_POST["Dinner2"]) && isset($_POST["Dinner4"])){
+    #Creates an array of all the answers
     $answers = [$_POST["Breakfast2"], $_POST["Breakfast4"], $_POST["Breakfast6"], $_POST["Lunch2"], $_POST["Lunch4"], $_POST["Lunch6"], $_POST["Lunch8"], $_POST["Supper2"], $_POST["Supper4"], $_POST["Supper6"], $_POST["Collation2"], $_POST["Dinner2"], $_POST["Dinner4"]];
     $diet = [];
+    #Deconstructs and combines the diet into a single array to be displayed in the page
     $valuesManyArrays = deconstructDiet($row);
     $valuesOneArray = array_merge($valuesManyArrays[0], $valuesManyArrays[1], $valuesManyArrays[2], $valuesManyArrays[3], $valuesManyArrays[4]);
+    #Erases data that is not actual information about the diet from the array
     array_splice($valuesOneArray, findIndex("Breakfast", $valuesOneArray), 1);
     array_splice($valuesOneArray, findIndex("Lunch", $valuesOneArray), 1);
     array_splice($valuesOneArray, findIndex("Supper", $valuesOneArray), 1);
     array_splice($valuesOneArray, findIndex("Collation", $valuesOneArray), 1);
     array_splice($valuesOneArray, findIndex("Dinner", $valuesOneArray), 1);
+
+    #Adds to the new food alternatives the quantity that must be eaten
     $answersCounter = 0;
     for($i = 0; $i < count($valuesOneArray); $i++){
         if ($i % 2 == 0) {
@@ -35,9 +41,9 @@ if(isset($_POST["Breakfast2"]) && isset($_POST["Breakfast4"]) && isset($_POST["B
         }
     }
     
+    #Diet is rebuilt and updated into the database
     $newDiet = rebuildDiet($diet);
-    print_r($newDiet);
-    $_SESSION["date"] = date('d-m-y h:i:s');
+    $date = date('d-m-y h:i:s');
     $stmt = $pdo->prepare('UPDATE Diets SET
     user_id=:uid, diet_id=:did, breakfast=:bf, lunch=:ln, supper=:sp, collation=:cl, dinner=:di, date=:dt, age=:ag, height=:he, weight=:we, gender=:ge  WHERE diet_id = :did AND user_id=:uid');
     $stmt->execute(array(
@@ -48,12 +54,12 @@ if(isset($_POST["Breakfast2"]) && isset($_POST["Breakfast4"]) && isset($_POST["B
     ':sp' => $newDiet[2],
     ':cl' => $newDiet[3],
     ':di' => $newDiet[4],
-    ':dt' => $_SESSION["date"],
+    ':dt' => $date,
     ':ag' => $_POST["age"],
     ':he' => $_POST["height"],
     ':we' => $_POST["weight"],
     ':ge' => $_POST["gender"])); 
-    header("location:diet.php");
+    header("location:dietTable.php");
     return;
 } 
 
@@ -80,7 +86,7 @@ if(isset($_POST["Breakfast2"]) && isset($_POST["Breakfast4"]) && isset($_POST["B
                             <a class="nav-link" href="store.php">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a href="diet.php" class="nav-link">View Diets</a>
+                            <a href="dietTable.php" class="nav-link">View Diets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Log Out</a>
@@ -100,12 +106,13 @@ if(isset($_POST["Breakfast2"]) && isset($_POST["Breakfast4"]) && isset($_POST["B
                 $stmt->execute(array(":did" => $_GET["diet_id"]));
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 if ($row === false){
-                    header("Location: diet.php");
+                    header("Location: dietTable.php");
                     return;
                 }
                 convertDietData($row);
                 ?>
                 <script>
+                    //Uses Ajax to receive JSON data that will be used by the autocomplete widget
                     $('#Breakfast2').autocomplete({
                     source: function(request, response) {
                     $.ajax({

@@ -1,5 +1,8 @@
 <?php
-require_once "db/pdo.php";
+require_once "pdo.php";
+
+# Outputs tags that go in the title tag of each file
+# Has no return values or parameters
 function head(){
     echo '<meta name="description" content="Diet making website to balance meals in the morning, afternoon, and night">';
     echo '<meta name="keywords" content="diet, healthy eating, balanced diet">';
@@ -12,6 +15,8 @@ function head(){
     echo '<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>';
 }
 
+# Flashes either an error message or success message
+# Has no return values or parameters
 function flashMessage() {
     if(isset($_SESSION["error"])){
         echo '<p style="color:red">'.$_SESSION["error"].'</p>';
@@ -23,6 +28,9 @@ function flashMessage() {
     }
 }
 
+# Calculates the amount of calories a person should eat
+# Parameters: age, height, weight, and gender
+# Return value: returns a number symbolizing the amount of calories calulated
 function Mifflin_St_Jeor($age, $height, $weight, $gender){
     if($gender == "male"){
         return (10*$weight)+(6.25*$height)-(5*$age)+5;
@@ -33,36 +41,50 @@ function Mifflin_St_Jeor($age, $height, $weight, $gender){
     }
 }
 
-function chooseDiet($msj){
-    if($msj == false){
+# Generates a diet based on the Mifflin_St_Jeor function. The diets are chosen based on a range. If the amount of calories does not fit
+# in any of the three ranges, a boolean value 'false' is returned
+# Parameters: $cal, the amount of calories
+# Return values: $diet, the generated diet or a false value
+function chooseDiet($cal){
+    if($cal == false){
         return false;
     }
     $diet = [];
-    if($msj>=1000 && $msj <=1500){
+    if($cal>=1000 && $cal <=1500){
         $diet = ["breakfast" => "Water: 250 ml;Apple: 1/2 piece;Prickly pear: 1/2 cup", "lunch" => "Eggs: 1 piece;Egg yolk: 4 pieces;Tomato, onion, and pepper: Up to you;Toasts: 1 piece","supper"=>"Grilled chicken breast: 100 grams;Rice: 1/2 cup;Salad: Free", "collation"=>"Almonds: 10 pieces", "dinner"=>"Tuna: 100 grams;Avocado: 1/2 piece"];
-    } else if ($msj>=1501 && $msj<=2000){
+    } else if ($cal>=1501 && $cal<=2000){
         $diet = ["breakfast" => "Water: 250 ml;Apple: 1/2 piece;Prickly pear: 1/2 cup","lunch" =>"Eggs: 2 pieces;Egg yolk: 4 pieces;Tomato, onion, and pepper: Up to you;Toasts: 2 pieces","supper"=>"Grilled chicken breast: 150 grams;Rice: 1/2 cup;Salad: Free", "collation"=>"Almonds: 15 pieces", "dinner"=>"Tuna: 150 grams;Avocado: 1/2 piece"];
-    } else if($msj>=2001 && $msj<=2500){
+    } else if($cal>=2001 && $cal<=2500){
         $diet = ["breakfast" =>"Water: 500 ml;Apple: 1 piece;Prickly pear: 1 cup","lunch" =>"Eggs: 3 pieces;Egg yolk: 5 pieces;Tomato, onion, and pepper: Up to you;Toasts: 3 pieces","supper"=>"Grilled chicken breast: 200 grams;Rice: 1 cup;Salad: Free", "collation"=>"Almonds: 25 pieces", "dinner"=>"Tuna: 200 grams;Avocado: 1 piece"];
+    } else {
+        return false;
     }
     return $diet;
 }
 
+#Validates login by checking if the firstName and lastName sessions exist. If the variables do not exist the user is returned to the main page
+#Has no return values or parameters
 function validateLogin(){
-    if(!isset($_SESSION["firstName"]) && !isset($_SESSION["last_name"])){
+    if(!isset($_SESSION["firstName"]) && !isset($_SESSION["lastName"])){
         header("location: index.php");
         return;
     }
 }
 
+#Validates actions regarding a diet by checking if the diet_id parameter is in the url. 
+#Has no return values or parameters
 function validateDiet(){
     if (!isset($_GET["diet_id"])){
         $_SESSION["error"] = "Missing user id";
-        header("Location: diet.php");
+        header("Location: dietTable.php");
         return;
     }
 }
 
+#Deconstructs the values of breakfast, lunch, supper, collation and dinner from a diet. Separates the values of food and quantity
+#by using ':' and ';' as delimiters
+#Parameters: $row, original information of the diet
+#Return: $diets, the modified diet
 function deconstructDiet($row){
     $delimiters = [":", ";"];
 
@@ -90,6 +112,9 @@ function deconstructDiet($row){
     return $diets;
 }
 
+# Creates the components that will be displayed in the Modify Diet page
+# Parameters: $row, original information of the diet
+# No return value
 function convertDietData($row){
     $diets = deconstructDiet($row);
     
@@ -108,6 +133,9 @@ function convertDietData($row){
     }
 }
 
+# Turns the modified diet into the same format as it was first inserted in the database
+# Parameters: $diet, the modified diet
+# Return value: $diet, the reconstructed diet
 function rebuildDiet($diet){
     for($i = 0; $i<count($diet); $i++){
         if ($i % 2 == 0) {
@@ -118,7 +146,6 @@ function rebuildDiet($diet){
             }
         }
     }
-    #$diet = implode($diet);
     $breakfast = [];
     $lunch = [];
     $supper = [];
@@ -148,6 +175,9 @@ function rebuildDiet($diet){
     return $diet;
 }
 
+# Finds the index where a word is an array
+# Parameters: $target, string of the wanted word; $array, array of strings where the word is
+# Return value: index of the wanted word
 function findIndex($target, $array){
     $index = 0;
     for($i = 0; $i<count($array); $i++){

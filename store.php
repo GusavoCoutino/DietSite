@@ -24,7 +24,7 @@ require_once "util.php";
                     </li>
                     <?php
                     if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
-                        echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
+                        echo '<li class="nav-item"><a href="dietTable.php" class="nav-link">View Diets</a></li>';
                         echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
                     }
                     else {
@@ -51,6 +51,7 @@ require_once "util.php";
         <div id="map" hidden="hidden"></div>
         <script src="js/mapsAPICall.js"></script>
         <script>
+            // Toggles the visibility of the map and search box
             let toggle = button => {
             let map = document.getElementById("map");
             let hidden = map.getAttribute("hidden");
@@ -63,15 +64,17 @@ require_once "util.php";
                     setTimeout(function() {
                         document.getElementById("pac-input").style.display = "block"; 
                         box.removeAttribute("hidden");
-                    },1250)
+                    },2000)
                     
                 } 
             }
-
+            // When the window loads, the initMap() function is called
             window.onload = function() {
                 initMap();
             }
             var map;
+
+            //Creates the map based on user location and adds event listeners
             function initMap() {
                 navigator.geolocation.getCurrentPosition(function(position) {
                          map = new google.maps.Map(document.getElementById('map'), {
@@ -91,6 +94,19 @@ require_once "util.php";
                     searchBox.setBounds(map.getBounds());
                 });
 
+                google.maps.event.addListener(map, "click", function (event) {
+                    // Get the latitude and longitude of the clicked location
+                    var clickedLat = event.latLng.lat();
+                    var clickedLng = event.latLng.lng();
+                    
+                    //Creates a marker when a location is clicked on the map
+                    var tempMarker = new google.maps.Marker({
+                    position: {lat: clickedLat, lng: clickedLng},
+                    map: map
+                    });
+                });
+                
+                //Adds markers when the searchbox value changes
                 searchBox.addListener('places_changed', function() {
                     var places = searchBox.getPlaces();
 
@@ -101,21 +117,12 @@ require_once "util.php";
                     var bounds = new google.maps.LatLngBounds();
                     places.forEach(function(place) {
                     if (!place.geometry) {
-                        console.log("Returned place contains no geometry");
                         return;
                     }
 
-                    var icon = {
-                        url: place.icon,
-                        size: new google.maps.Size(71, 71),
-                        origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(17, 34),
-                        scaledSize: new google.maps.Size(25, 25)
-                    };
-
+                    //Creates the marker for the value in the searchbox
                     var marker = new google.maps.Marker({
                         map: map,
-                        icon: icon,
                         title: place.name,
                         position: place.geometry.location
                     });

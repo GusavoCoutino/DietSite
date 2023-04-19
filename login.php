@@ -1,12 +1,15 @@
 <?php
 session_start();
-require_once "db/pdo.php"; require_once "util.php";
+require_once "pdo.php"; require_once "util.php";
 require  __DIR__ . "/vendor/autoload.php";
+
+
 if(isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])){
     header("Location: index.php");
     return;
 }
 
+#Checks if both fields are complete, and if passwords match the user is set to logged in. Otherwise an error message is displayed
 if(isset($_POST["email"]) && isset($_POST["pass"])){
     $check = hash("md5", $_POST["pass"]);
     $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:em AND password=:pd");
@@ -36,7 +39,6 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
         <title>Log In</title>
         <?php head();?>
         <link rel="stylesheet" type="text/css" href="css/style.css?<?php echo time(); ?>">
-        
     <head>
     <body style="background-color: aquamarine;">
         <header>
@@ -69,6 +71,7 @@ if(isset($_POST["email"]) && isset($_POST["pass"])){
                         <form method="POST">
                             <?php
                             flashMessage();
+                            
                             ?>
                             <div class="emailField">
                                 <input id="email" type="text" name="email">

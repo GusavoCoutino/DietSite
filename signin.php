@@ -1,12 +1,14 @@
 <?php
 session_start();
-require_once "db/pdo.php"; require_once "util.php";
+require_once "pdo.php"; require_once "util.php";
 
 if(isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])){
     header("Location: index.php");
     return;
 }
 
+# Checks if all the text fields have some text in it
+# Encrypts the password and uploads information to the database
 if(isset($_POST["email"]) && isset($_POST["pass"]) && isset($_POST["firstName"]) && isset($_POST["lastName"])){
     $check = hash("md5", $_POST["pass"]);
     $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES(:fn, :ln, :em, :pd)");

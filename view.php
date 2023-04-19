@@ -1,24 +1,27 @@
 <?php
 session_start();
 require_once "util.php";
-require_once "db/pdo.php";
+require_once "pdo.php";
 
+#Checks if user is logged in and if diet id exists
 validateLogin();
 validateDiet();
 
 if(isset($_POST["cancel"])){
-    header("location: diet.php");
+    header("location: dietTable.php");
     return;
 }
 
+#Loads diet information
 $stmt = $pdo->prepare("SELECT * FROM diets WHERE diet_id = :did");
 $stmt->execute(array(":did" => $_GET["diet_id"]));
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row === false){
-    header("Location: index.php");
+    header("Location: dietTable.php");
     return;
 }
 
+#Turns the string into an array using ';' as a delimiter
 $breakfast = explode(";", $row["breakfast"]);
 $lunch = explode(";", $row["lunch"]);
 $supper = explode(";", $row["supper"]);
@@ -47,7 +50,7 @@ $dinner = explode(";", $row["dinner"]);
                         </li>
                         <?php
                         if (isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])) {
-                            echo '<li class="nav-item"><a href="diet.php" class="nav-link">View Diets</a></li>';
+                            echo '<li class="nav-item"><a href="dietTable.php" class="nav-link">View Diets</a></li>';
                             echo '<li class="nav-item"><a href="logout.php" class="nav-link">Log Out</a></li>';
                         }
                         else {

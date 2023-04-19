@@ -1,25 +1,28 @@
 <?php
 session_start();
 require_once "util.php";
-require_once "db/pdo.php";
+require_once "pdo.php";
 
-
+# Checks if user is logged in
 if(!isset($_SESSION["firstName"]) && !isset($_SESSION["last_name"])){
-    header("location: diet.php");
+    header("location: dietTable.php");
     return;
 }
 
+# Checks if diet_id is in the url
 if (!isset($_GET["diet_id"])){
     $_SESSION["error"] = "Missing user id";
-    header("Location: diet.php");
+    header("Location: dietTable.php");
     return;
 }
 
+#Chechks if all fields are complete and numeric
 if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) && isset($_POST["gender"])){
     if(is_numeric($_POST["age"]) && is_numeric($_POST["height"]) && is_numeric($_POST["weight"])){
+        #Generates the diet automtically, and if diets is not false, the database is updated
         $diets = chooseDiet(Mifflin_St_Jeor($_POST["age"], $_POST["height"], $_POST["weight"], $_POST["gender"]));
         if($diets!==false){
-            $_SESSION["date"] = date('d-m-y h:i:s');
+            $date["date"] = date('d-m-y h:i:s');
             $stmt = $pdo->prepare('UPDATE diets SET
             user_id=:uid, diet_id=:did, breakfast=:bf, lunch=:ln, supper=:sp, collation=:cl, dinner=:di, date=:dt, age=:ag, height=:he, weight=:we, gender=:ge WHERE user_id = :uid AND diet_id = :did');
             $stmt->execute(array(
@@ -30,13 +33,12 @@ if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) &&
             ':sp' => $diets["supper"],
             ':cl' => $diets['collation'],
             ':di' => $diets['dinner'],
-            ':dt' => $_SESSION["date"],
+            ':dt' => $date,
             ':ag' => $_POST["age"],
             ':he' => $_POST["height"],
             ':we' => $_POST["weight"],
             ':ge' => $_POST["gender"]));
-            unset($_SESSION["date"]);
-            header("location: diet.php");
+            header("location: dietTable.php");
             return;
         } else {
             $_SESSION["error"] = "A diet could not be calculated";
@@ -55,7 +57,7 @@ $stmt->execute(array(":did" => $_GET["diet_id"], ":uid" => $_SESSION["user_id"])
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($row === false){
     $_SESSION["error"] = "Bad value for profile id";
-    header("Location: diet.php");
+    header("Location: dietTable.php");
     return;
 }
 ?>
@@ -79,7 +81,7 @@ if ($row === false){
                             <a class="nav-link" href="store.php">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a href="diet.php" class="nav-link">View Diets</a>
+                            <a href="dietTable.php" class="nav-link">View Diets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Log Out</a>

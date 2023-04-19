@@ -1,21 +1,22 @@
 <?php
 session_start();
 require_once "util.php";
-require_once "db/pdo.php";
+require_once "pdo.php";
 
+
+//Checks if user is logged in, otherwise sends them to the main page
 if(!isset($_SESSION["firstName"]) && !isset($_SESSION["last_name"])){
-    header("location: diet.php");
+    header("location: dietTable.php");
     return;
 }
 
-
-
-
+//Checks if all fields have text, and if the fields of age, height and weight are numeric
 if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) && isset($_POST["gender"])){
     if(is_numeric($_POST["age"]) && is_numeric($_POST["height"]) && is_numeric($_POST["weight"])){
+        //Calculates amount of calories and returns a diet. If a diet was not calculated the user is redirected to the page they are in with an error message.
         $diets = chooseDiet(Mifflin_St_Jeor($_POST["age"], $_POST["height"], $_POST["weight"], $_POST["gender"]));
         if($diets!==false){
-            $_SESSION["date"] = date('d-m-y h:i:s');
+            $date = date('d-m-y h:i:s');
             $stmt = $pdo->prepare('INSERT INTO diets (user_id, breakfast, lunch, supper, collation, dinner, date, age, height, weight, gender) VALUES ( :uid, :bf, :ln, :sp, :cl, :di, :dt, :ag, :he, :we, :ge)');
             $stmt->execute(array(
             ':uid' => $_SESSION['user_id'],
@@ -24,13 +25,12 @@ if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) &&
             ':sp' => $diets["supper"],
             ':cl' => $diets['collation'],
             ':di' => $diets['dinner'],
-            ':dt' => $_SESSION["date"],
+            ':dt' => $date,
             ':ag' => $_POST["age"],
             ':he' => $_POST["height"],
             ':we' => $_POST["weight"],
             ':ge' => $_POST["gender"]));
-            unset($_SESSION["date"]);
-            header("location: diet.php");
+            header("location: dietTable.php");
             return;
         } else {
             $_SESSION["error"] = "A diet could not be calculated";
@@ -64,7 +64,7 @@ if(isset($_POST["age"]) && isset($_POST["height"]) && isset($_POST["weight"]) &&
                             <a class="nav-link" href="store.php">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a href="diet.php" class="nav-link">View Diets</a>
+                            <a href="dietTable.php" class="nav-link">View Diets</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Log Out</a>
