@@ -77,30 +77,65 @@ This section will explain what keys or information are needed to make the APIS a
    ```
 
 2. Create a .env file in your directory
+3. Open MAMP, then press WebStart. Choose the option phpMyAdmin and go to the sql console. Run the following commands:
+```sh
+CREATE DATABASE DietSite DEFAULT CHARACTER SET utf8 ;
 
-3. Get a Google Maps API key from the <a href="https://cloud.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=latam-MX-all-es-dr-BKWS-all-all-trial-e-dr-1605194-LUAC0010195&utm_content=text-ad-none-any-DEV_c-CRE_512379899402-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20GCP_General-KWID_43700062784667416-kwd-301173107424&utm_term=KW_google%20cloud-ST_Google%20Cloud&gclid=CjwKCAjw__ihBhADEiwAXEazJocqLLlrn9_YgR1MCVlQpUv6wk2B_N19n7P-dwhxJwhT7gHHkNGMKxoCllQQAvD_BwE&gclsrc=aw.ds&hl=es-419">official site</a>
+GRANT ALL ON misc.* TO 'gustavo'@'localhost' IDENTIFIED BY 'root';
+GRANT ALL ON misc.* TO 'gustavo'@'127.0.0.1' IDENTIFIED BY 'root';
 
-4. Paste your API key in the .env file 
+create TABLE users(
+  user_id INTEGER NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(128),
+  last_name VARCHAR(128),
+  email VARCHAR(128),
+  password VARCHAR(128),
+  PRIMARY KEY(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create TABLE diets(
+  user_id INTEGER,
+  diet_id INTEGER NOT NULL AUTO_INCREMENT,
+  breakfast VARCHAR(128),
+  lunch VARCHAR(128),
+  supper VARCHAR(128),
+  collation VARCHAR(128),
+  dinner VARCHAR(128),
+  date VARCHAR(128),
+  age INTEGER,
+  height FLOAT(6,3),
+  weight FLOAT(6,3),
+  gender VARCHAR(128),
+  PRIMARY KEY(diet_id),
+    FOREIGN KEY (user_id)
+    REFERENCES users (user_id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  ```
+
+4. Get a Google Maps API key from the <a href="https://cloud.google.com/?utm_source=google&utm_medium=cpc&utm_campaign=latam-MX-all-es-dr-BKWS-all-all-trial-e-dr-1605194-LUAC0010195&utm_content=text-ad-none-any-DEV_c-CRE_512379899402-ADGP_Hybrid%20%7C%20BKWS%20-%20EXA%20%7C%20Txt%20~%20GCP_General-KWID_43700062784667416-kwd-301173107424&utm_term=KW_google%20cloud-ST_Google%20Cloud&gclid=CjwKCAjw__ihBhADEiwAXEazJocqLLlrn9_YgR1MCVlQpUv6wk2B_N19n7P-dwhxJwhT7gHHkNGMKxoCllQQAvD_BwE&gclsrc=aw.ds&hl=es-419">official site</a>
+
+5. Paste your API key in the .env file 
 ```sh
   MAPS_API_KEY = "Your API key"
   ```
-5. For the PHPMailer, you will need a new email from where to send the emails. Create a new email and place it in the .env file  
+6. For the PHPMailer, you will need a new email from where to send the emails. Create a new email and place it in the .env file  
   ```sh
   MAIL_USERNAME = "Your email"
   ```
   
- 6. With your new email, create an app password (Go to Manage your Google Account, Security, Signing in to Google, and App Passwords). Place your app password in the .env file.
+ 7. With your new email, create an app password (Go to Manage your Google Account, Security, Signing in to Google, and App Passwords). Place your app password in the .env file.
 
   ```sh
   EMAIL_PASSWORD = "Your app password"
   ```
   
-  7. For the PHPMailer library, use "smtp.gmail.com" as the host. Copy the following line into the .env file.
+  8. For the PHPMailer library, use "smtp.gmail.com" as the host. Copy the following line into the .env file.
    ```sh
   HOST = "smtp.gmail.com"
   ```
   
-  8. Use 465 as your email port
+  9. Use 465 as your email port
    ```sh
   EMAIL_PORT = 465
   ```
