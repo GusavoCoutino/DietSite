@@ -23,9 +23,11 @@
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
-    </li>
     <li><a href="#demo">Demo</a></li>
     <li><a href="#future-updates">Future Updates</a></li>
+      <li>
+      <a href="#contributing">Contributing</a>
+    </li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -77,7 +79,7 @@ This section will explain what keys or information are needed to make the APIS a
    ```
 
 2. Create a .env file in your directory
-3. Open MAMP, then press WebStart. Choose the option phpMyAdmin and go to the sql console. Run the following commands:
+3. Open MAMP, then press WebStart. Choose the option phpMyAdmin and go to the sql console. Run the following commands (replace 'gustavo' and 'root' with the username and password for your database of your choice):
 ```sh
 CREATE DATABASE DietSite DEFAULT CHARACTER SET utf8 ;
 
@@ -139,6 +141,12 @@ create TABLE diets(
    ```sh
   EMAIL_PORT = 465
   ```
+  10. Using the username and password created for your database. Store these values in the .env file:
+  ```sh
+  DB_USERNAME = 'Your Username'
+  DB_PASSWORD = 'Your Password'
+  ```
+  
  <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Demo
@@ -194,6 +202,14 @@ This section will be a walkthrough of the web application, the expected inputs a
 - [ ] Update Store (Google Maps API map) page to save markers from the user in the database
 - [ ] Add authentication to log in and sign in (Google Cloud, Firebase, Auth0)
 - [ ] Add more diets that can be generated
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Contributing
+To contribute to this project, fork the repository, make your changes, and make a pull request. Here are some of the things you can contribute to: 
+* Report a bug: If you encounter a bug or unaccounted for error, open an issue and describe it in detail with images and test cases.
+* New features: To add a new feature you think would benefit the project, open an issue and describe your idea. If we accept it, we will decide on how to commit it to the repository.
+* Code cleanup: If you notice something is not organized, if there is any sort of unsafe practice (such as risks to SQL injections or other vulnerabilities), make changes to the repository and make a pull request describing what is being changed
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
