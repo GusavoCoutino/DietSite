@@ -11,13 +11,11 @@ if(isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])){
 
 #Checks if both fields are complete, and if passwords match the user is set to logged in. Otherwise an error message is displayed
 if(isset($_POST["email"]) && isset($_POST["pass"])){
-    $check = hash("md5", $_POST["pass"]);
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:em AND password=:pd");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email=:em");
     $stmt->execute(array(
-        ":em"=>$_POST["email"], 
-        ":pd"=>$check));
+        ":em"=>$_POST["email"]));
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
-    if($row["password"]===$check && $row["email"] === $_POST["email"]){
+    if(password_verify($_POST["pass"], $row["password"]) && $row["email"] === $_POST["email"]){
         $_SESSION["firstName"] = $row["first_name"];
         $_SESSION["lastName"] = $row["last_name"];
         $_SESSION["user_id"] = $row["user_id"];

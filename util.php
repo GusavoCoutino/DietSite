@@ -187,5 +187,17 @@ function findIndex($target, $array){
     }
     return $index;
 }
+
+# Encrypts a password using the best hashing algorithm available
+# Parameters: $password, the user's password created in the signin
+# Return value: hashed password;
+function encryptPassword($password){
+    # Generate a random salt value
+    $salt = password_hash('', PASSWORD_DEFAULT, ['cost' => 10]);
+
+    # Hash the password using the salt value
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT, ['salt' => $salt]);
+    return $hashed_password;
+}
 ?>
 

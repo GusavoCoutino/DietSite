@@ -10,7 +10,7 @@ if(isset($_SESSION["firstName"]) && isset($_SESSION["lastName"])){
 # Checks if all the text fields have some text in it
 # Encrypts the password and uploads information to the database
 if(isset($_POST["email"]) && isset($_POST["pass"]) && isset($_POST["firstName"]) && isset($_POST["lastName"])){
-    $check = hash("md5", $_POST["pass"]);
+    $check = encryptPassword($_POST["pass"]);
     $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES(:fn, :ln, :em, :pd)");
     $stmt->execute(array(
         ":fn"=>$_POST["firstName"],
